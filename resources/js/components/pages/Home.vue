@@ -2,28 +2,33 @@
     <div class="halaman">
         <div class="container">
             <div class="row">
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
-                <user-card></user-card>
+                <user-card
+                v-for="maha in mahasiswa"
+                :key="maha.id"
+                :nama="maha.nama"
+                :jurusan="maha.jurusan"
+                :id="maha.id"
+                ></user-card>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import UserCard from '../components/UserCard.vue';
+import UserCard from '../component/UserCard.vue';
 export default {
     components:{
         UserCard
+    },
+    data(){
+        return{
+            mahasiswa:null,
+        }
+    },
+    created(){
+        axios.get('api/home').then(response=>{
+            this.mahasiswa = response.data;
+        });
     }
 }
 </script>
